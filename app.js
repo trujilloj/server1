@@ -1,7 +1,38 @@
 const express = require('express')
 const app = express()
 const cohorts = require('./data/cohorts.js')
+const cors = require("cors")
+app.use(cors());
 
-app.get('/', (req, res) => res.json({data: cohorts}))
+function getId(cohorts, number) {
+    return cohorts.filter(cohort => {
+        console.log(cohort.id)
+        if (cohort.id == number) {
+            return cohort;
+        } else {
+            return null
+        }
+    })[0];
+}
 
-app.listen((process.env.PORT || 5000), () => console.log('Example app listening on port 3000!'))
+app.get('/', (req, res, next) =>
+    res.status(200).json({
+        data: cohorts
+    }))
+
+app.get('/:id', (req, res) => {
+    var record = getId(cohorts, req.params.id);
+    if (record) {
+        res.status(200).json({
+            data: record
+        });
+    } else {
+        res.status(404).json({
+            error: {
+                message: "No record found!"
+            }
+        });
+    }
+});
+
+app.listen((process.env.PORT || 3000), () => console.log('Example app listening on port 3000!'))

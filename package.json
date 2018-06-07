@@ -10,6 +10,7 @@
   "author": "Jose Trujillo",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "nodemon": "^1.17.5"
   }
