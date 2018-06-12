@@ -6,7 +6,6 @@ app.use(cors())
 
 function getId(cohorts, number) {
     return cohorts.filter(cohort => {
-        console.log(cohort.id)
         if (cohort.id == number) {
             return cohort
         } else {
